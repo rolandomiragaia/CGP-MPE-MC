@@ -1,0 +1,33 @@
+function store = test_(this, sizes, structure, genes, active, inputs, functions)
+
+    % for each test case, calculate fitness_
+    [nodesResult, params, store] = this.setupFitnessProperties_(sizes);
+
+    for k = 1:sizes(inputs.real, 1)
+        nodesResult = this.decodeNodes_( ...
+            sizes, ...
+            structure, ...
+            genes, ...
+            active, ...
+            nodesResult, ...
+            functions, ...
+            inputs, ...
+            k, ...
+            params ...
+        );
+
+        outputNormalized = this.normalize_(nodesResult(end,:));
+
+        store.results(k, :) = outputNormalized;
+
+        if this.binaryFitness_(outputNormalized)
+            store.tp.total = store.tp.total + 1;
+            store.tp.values(k) = k;
+        else
+            store.fn.total = store.fn.total + 1;
+            store.fn.values(k) = k;
+        end
+
+    end
+end
+
