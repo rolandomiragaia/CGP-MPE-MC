@@ -22,6 +22,6 @@ function addInputs(this, varargin)
     %           ...
     %       ))
 
-    this.sizes_.inputs = length(fieldnames(varargin{1}));
+    this.config_.sizes.inputs = length(fieldnames(varargin{1}));
     this.inputs_ = varargin{1};
 end

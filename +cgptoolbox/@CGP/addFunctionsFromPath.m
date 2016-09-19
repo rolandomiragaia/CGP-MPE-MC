@@ -12,10 +12,10 @@ function addFunctionsFromPath(this, path)
     %       cgp.addFunctionsFromPath('./my-function-set')
 
     directoryMethods = dir([path, '/*.m']);
-    this.sizes_.functions = length(directoryMethods);
-    this.functions_ = cell(this.sizes_.functions, 1);
+    this.config_.sizes.functions = length(directoryMethods);
+    this.functions_ = cell(this.config_.sizes.functions, 1);
 
-    for i = 1:this.sizes_.functions
+    for i = 1:this.config_.sizes.functions
        this.functions_{i} = str2func(directoryMethods(i).name(1:end - 2));
        this.config_.function_set{i} = directoryMethods(i).name(1:end - 2);
     end

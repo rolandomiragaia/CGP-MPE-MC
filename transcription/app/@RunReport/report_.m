@@ -1,10 +1,10 @@
-function report_ (this, callback, run, generation, fitness, genes, active)
-    ['run: ', num2str(run)]
+function report_ (this, vararg)
+    ['run: ', num2str(vararg.run)]
 
     run_file = fopen([this.runsDirectory_, 'training.txt'], 'a');
 
     % print generation
-    fprintf(run_file, 'run:%d - generation:%d - score:%.16f\n', run, generation, fitness);
+    fprintf(run_file, 'run:%d - score:%.16f\n', vararg.run, vararg.fitness);
 
     % reset stored fitness properties
     this.fitnessInstance_.reset();

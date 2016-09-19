@@ -1,4 +1,4 @@
-function report_(this, configuration, sizes)
+function report_(this, vararg)
     if ~exist(this.configurationDirectory_, 'dir')
         mkdir(this.configurationDirectory_);
     end
@@ -12,6 +12,6 @@ function report_(this, configuration, sizes)
     writetable(struct2table(this.configuration_.signal), this.files_.signal);
     writetable(struct2table(this.configuration_.report), this.files_.report);
     writetable(struct2table(this.configuration_.cgp), this.files_.cgp);
-    writetable(struct2table(sizes), this.files_.sizes);
-    writetable(this.createTable_(sizes), this.files_.referenceTable);
+    writetable(struct2table(vararg.config.sizes), this.files_.sizes);
+    writetable(this.createTable_(vararg.config.sizes), this.files_.referenceTable);
 end

@@ -1,8 +1,8 @@
-function mutateThreshold_(this, callback, solution)
+function mutateThreshold_(this, vararg)
     addOrSubtract = rand();
 
     % if first generation, store the previous generation fittest solution threshold
-    if solution == 1
+    if vararg.generation == 1
         this.threshold_ = this.thresholdMutated_;
     end
 

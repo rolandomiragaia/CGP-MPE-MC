@@ -10,18 +10,18 @@ function test(varargin)
         fn = [];
         current_classifier = classifiers(i).classifier_;
 
-        CONFIG = Configuration(current_classifier.pitch);
-        CONFIG = CONFIG.CONFIG_;
-        CONFIG.signal.threshold = current_classifier.threshold;
-        CONFIG.signal.pitch = current_classifier.pitch;
+        config = Configuration(current_classifier.pitch);
+        config = config.config_;
+        config.signal.threshold = current_classifier.threshold;
+        config.signal.pitch = current_classifier.pitch;
 
-        fitness = Fitness(CONFIG);
+        fitness = Fitness(config);
 
         % test with different set
-        inputs = Inputs(CONFIG.signal, 'test-negative').get();
+        inputs = Inputs(config.signal, 'test-negative').get();
         fields_ = fieldnames(inputs);
-        if strcmp(CONFIG.signal.polyphony, 'chords')
-            negativeTC = dir(['transcription/dataset/chords/test/negative/', CONFIG.signal.pitch, '/*.wav']);
+        if strcmp(config.signal.polyphony, 'chords')
+            negativeTC = dir(['transcription/dataset/chords/test/negative/', config.signal.pitch, '/*.wav']);
         else
             negativeTC = dir('transcription/dataset/single/test/all/*.wav');
             indexes = [];
@@ -35,14 +35,15 @@ function test(varargin)
 
         for k = 1:size(inputs.(fields_{1}), 1)
             inp_ = struct();
-            
-            for l = 1:size(CONFIG.signal.inputs, 2)
+
+            for l = 1:size(config.signal.inputs, 2)
                 i_ = inputs.(fields_{l});
                 inp_.(fields_{l}) = i_(k, :);
             end
+            
             score = fitness.testCompute( ...
-                current_classifier.SIZE, ...
-                current_classifier.STRUCTURE, ...
+                current_classifier.sizes, ...
+                current_classifier.structure, ...
                 current_classifier.genes, ...
                 current_classifier.active, ...
                 inp_, ...
@@ -56,24 +57,24 @@ function test(varargin)
             end
         end
 
-        inputs = Inputs(CONFIG.signal, 'test-positive').get();
+        inputs = Inputs(config.signal, 'test-positive').get();
         fields_ = fieldnames(inputs);
-        if strcmp(CONFIG.signal.polyphony, 'chords')
-            positiveTC = dir(['transcription/dataset/chords/test/positive/', CONFIG.signal.pitch, '/*.wav']);
+        if strcmp(config.signal.polyphony, 'chords')
+            positiveTC = dir(['transcription/dataset/chords/test/positive/', config.signal.pitch, '/*.wav']);
         else
-            positiveTC = dir(['transcription/dataset/single/test/', CONFIG.signal.pitch, '/*.wav']);
+            positiveTC = dir(['transcription/dataset/single/test/', config.signal.pitch, '/*.wav']);
         end
 
         for k = 1:size(inputs.(fields_{1}), 1)
             inp_ = struct();
-            
-            for l = 1:size(CONFIG.signal.inputs, 2)
+
+            for l = 1:size(config.signal.inputs, 2)
                 i_ = inputs.(fields_{l});
                 inp_.(fields_{l}) = i_(k, :);
             end
             score = fitness.testCompute( ...
-                current_classifier.SIZE, ...
-                current_classifier.STRUCTURE, ...
+                current_classifier.sizes, ...
+                current_classifier.structure, ...
                 current_classifier.genes, ...
                 current_classifier.active, ...
                 inp_, ...

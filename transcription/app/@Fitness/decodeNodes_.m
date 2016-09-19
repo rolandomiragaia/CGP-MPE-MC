@@ -11,9 +11,9 @@ function nodesResult_ = decodeNodes_(this, sizes, structure, genes, active, node
       params(i) = genes(paramGenes(i));
     end
 
-    geneFn = genes(structure.functions(active(j)));
-    firstInput = nodesResult_(genes(structure.connections{1}(active(j))),:);
-    secondInput = nodesResult_(genes(structure.connections{2}(active(j))),:);
+    geneFn = genes(structure.functionGenes(active(j)));
+    firstInput = nodesResult_(genes(structure.connectionGenes{1}(active(j))),:);
+    secondInput = nodesResult_(genes(structure.connectionGenes{2}(active(j))),:);
 
     result = functions{geneFn}(firstInput, secondInput, params);
 

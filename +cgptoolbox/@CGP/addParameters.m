@@ -37,7 +37,8 @@ function addParameters(this, varargin)
     %
     %      cgp.addParameters(my-first-paremeter-struct, my-second-paremeter-struct, ...)
 
-    this.validateParameters_(varargin);
-    this.parameters_ = varargin;
-    this.sizes_.parameters = length(varargin);
+    if this.areValidParameters_(varargin);
+        this.parameters_ = varargin;
+        this.config_.sizes.parameters = length(varargin);
+    end
 end
