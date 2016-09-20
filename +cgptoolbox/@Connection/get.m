@@ -9,5 +9,5 @@ function value = get(this)
     %   Examples:
     %       connection.get()
 
-    value = this.newConnections_;
+    value = this.newConnection_;
 end

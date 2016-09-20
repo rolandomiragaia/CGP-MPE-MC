@@ -20,7 +20,7 @@ classdef Connection
     %       Connection(sizes, 10)
 
     properties (Access = private)
-        newConnections_
+        newConnection_
         nodeIndex_
         possibleConnections_
     end
@@ -57,7 +57,7 @@ classdef Connection
 
             this.nodeIndex_ = this.findWhichNodeBelongs_(vararg.sizes, vararg.geneIndex);
             this.possibleConnections_ = this.findPossibleConnections_(vararg.sizes);
-            this.newConnections_ = this.possibleConnections_(randi(size(this.possibleConnections_, 2)));
+            this.newConnection_ = this.possibleConnections_(randi(size(this.possibleConnections_, 2)));
         end
     end
     
