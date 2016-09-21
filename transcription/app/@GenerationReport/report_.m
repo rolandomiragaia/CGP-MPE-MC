@@ -98,7 +98,7 @@ function report_(this, vararg)
             );
         end
 
-        if this.config_.print_figures
+        if this.config_.print_figures && ~mod(vararg.generation, 50) 
 
             for j = 1:size(store.results, 1)
                 fig = figure('Visible','off');
