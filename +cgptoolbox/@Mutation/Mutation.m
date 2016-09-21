@@ -70,9 +70,9 @@ classdef Mutation
             % assign the active nodes
             this.activeNodes_ = this.findActiveNodes_(vararg.config.sizes, vararg.config.structure.connectionGenes);
 
-            % if isequal(this.activeNodes_, vararg.fittestSolution.getActiveNodes())
-            %     this.fitness_ = vararg.fittestSolution.getFitness();
-            % else
+            %if isequal(this.activeNodes_, vararg.fittestSolution.getActiveNodes())
+            %    this.fitness_ = vararg.fittestSolution.getFitness();
+            %else
                 % assign the fitness for this solution
                 this.fitness_ = cgptoolbox.Fitness(struct( ...
                     'fitness_function', vararg.config.fitness_function, ...
@@ -84,7 +84,7 @@ classdef Mutation
                     'run', vararg.config.run, ...
                     'generation', vararg.config.generation ...
                 )).get();
-            % end
+            %end
 
             % fire the GENOTYPE_MUTATED callback
             if isfield(vararg.callbacks, 'GENOTYPE_MUTATED')
@@ -92,7 +92,7 @@ classdef Mutation
             end
         end
     end
-
+    
     methods (Access = private)
         function newValue = mutate_(this, sizes, structure, gene, parameters, shouldBeLastNode)
             % mutate_ mutate one gene
@@ -120,7 +120,6 @@ classdef Mutation
             % mutate output
             if (any(gene == structure.programOutputs))
                 newValue = cgptoolbox.Output(struct( ...
-                    'numberOfInputs', sizes.inputs, ...
                     'numberOfNodes', sizes.nodes, ...
                     'shouldBeLastNode', shouldBeLastNode ...
                 )).get();
@@ -153,7 +152,7 @@ classdef Mutation
                 'numberOfFunctions', 1 ...
             )).get();
         end
-
+        
         function activeNodes_ = findActiveNodes_(this, sizes, connections)
             % findActiveNodes_ find the active nodes
             %
@@ -195,7 +194,7 @@ classdef Mutation
                 %   each of the connection genes will later be checked for its
                 %   connections
                 for j = 1:sizes.connection_genes
-                    activeNodes_(i + (i * 1) + j - 1) = this.genes_(connections{j}(activeNodes_(i) - sizes.inputs));
+                    activeNodes_(i + (i * 1) + j - 1) = this.genes_(connections{j}(activeNodes_(i)));
                 end
             end
 
