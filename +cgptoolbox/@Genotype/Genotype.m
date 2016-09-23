@@ -26,6 +26,7 @@ classdef Genotype < handle
     %       findActiveNodes_   {private} find which nodes are active
 
     properties (Access = private)
+        configuration_
         activeNodes_
         genes_
         fitness_
@@ -48,25 +49,7 @@ classdef Genotype < handle
             %       Genotype(config, sizes, structure, inputs, functions, parameters)
 
             this.genes_ = zeros(1, vararg.config.sizes.genes);
-
-            this.createProgramInputs_(vararg.config.structure.programInputs);
-            this.createFunctionGenes_(vararg.config.structure.functionGenes, vararg.config.sizes.functions, vararg.config.sizes.inputs);
-            this.createConnectionGenes_(vararg.config.structure, vararg.config.sizes);
-            this.createParameters_(vararg.config.sizes, vararg.parameters);
-            this.createProgramOutputs_(vararg.config.sizes.genes, vararg.config.sizes.outputs, vararg.config.sizes.nodes, vararg.config.last_node_output);
-
-            this.activeNodes_ = this.findActiveNodes_(vararg.config.sizes, vararg.config.structure.connectionGenes);
-
-            this.fitness_ = cgptoolbox.Fitness(struct( ...
-                'fitness_function', vararg.config.fitness_function, ...
-                'config', vararg.config, ...
-                'genes', this.genes_, ...
-                'activeNodes', this.activeNodes_, ...
-                'programInputs', vararg.programInputs, ...
-                'functionSet', {vararg.functionSet}, ...
-                'run', vararg.config.run, ...
-                'generation', vararg.config.generation ...
-            ));
+            this.configuration_ = vararg;
         end
     end
     
@@ -189,11 +172,13 @@ classdef Genotype < handle
             %       genotype.createInputs_(4);
             %       genotype.createInputs_(2);
 
+            output = cgptoolbox.Output(struct( ...
+                'numberOfNodes', nodes, ...
+                'shouldBeLastNode', shouldBeLastNode ...
+             ));
+
             for i = genes - outputs + 1:genes
-                this.genes_(i) = cgptoolbox.Output(struct( ...
-                    'numberOfNodes', nodes, ...
-                    'shouldBeLastNode', shouldBeLastNode ...
-                 )).get();
+                this.genes_(i) = output.createOutput();
             end
         end
         
@@ -242,7 +227,7 @@ classdef Genotype < handle
             this.genes_(functionGenes(inputs+1:size(functionGenes, 2))) = cgptoolbox.Functions(struct( ...
                 'sizeOfFunctionSet', functionSet, ...
                 'numberOfFunctions', size(functionGenes, 2) - inputs ...
-            )).get();
+            )).createFunctions();
         end
         
         function createConnectionGenes_(this, structure, sizes)
@@ -281,7 +266,7 @@ classdef Genotype < handle
                     this.genes_(structure.connectionGenes{i}(j)) = cgptoolbox.Connection(struct( ...
                         'sizes', sizes, ...
                         'geneIndex', structure.connectionGenes{i}(j) ...
-                    )).get();
+                    )).createConnection();
                 end
             end
         end

@@ -1,6 +1,11 @@
 function nodesResult_ = decodeNodes_(this, sizes, structure, genes, active, nodesResult_, functions, inputs, index, params)
   nodesResult_ = this.initializeNodesResult_(nodesResult_, index, inputs);
 
+  if ~isfield(sizes, 'inputs')
+      sizes.inputs = sizes.INPUTS;
+      sizes.parameters = sizes.PARAMETERS;
+  end
+
   for j = sizes.inputs + 1:size(active, 2)
     % TODO: pass this parameters to genotype configuration
     % start at number of inputs * number of nodes with

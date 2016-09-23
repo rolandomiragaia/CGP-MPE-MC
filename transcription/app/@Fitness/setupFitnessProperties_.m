@@ -1,7 +1,12 @@
 function [nodesResult, params, store] = setupFitnessProperties_(this, sizes)
-    nodesResult(sizes.nodes, this.config_.signal.fft_samples) = zeros();
+    if isfield(sizes, 'nodes')
+        nodesResult(sizes.nodes, this.config_.signal.fft_samples) = zeros();
+        params = zeros(1, sizes.parameters);
+    else
+        nodesResult(sizes.NODES, this.config_.signal.fft_samples) = zeros();
+        params = zeros(1, sizes.PARAMETERS);
+    end
 
-    params = zeros(1, sizes.parameters);
 
     store = struct ( ...
         'tp', struct ( ...
