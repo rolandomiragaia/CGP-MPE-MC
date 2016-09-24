@@ -12,4 +12,5 @@ function signal = createSignalByFrequency(~, fundamentalFrequency, samplingFrequ
         otherwise % sinusoid
             signal = sin(2 * pi * fundamentalFrequency * time); % sin(2*pi*f*t)
     end
+    % add_awgn(signal, randi([5 15]));
 end
