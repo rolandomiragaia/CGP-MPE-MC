@@ -14,7 +14,8 @@ function test(varargin)
         config = config.config_;
         config.signal.threshold = current_classifier.threshold;
         config.signal.pitch = current_classifier.pitch;
-
+        %config.signal.type = 'record';
+        % config.signal.polyphony = 'chords';
         fitness = Fitness(config);
 
         % test with different set
@@ -42,6 +43,16 @@ function test(varargin)
             end
 
             if isfield(current_classifier, 'SIZE')
+                if isempty(current_classifier.STRUCTURE.connectionGenes)
+                    current_classifier.STRUCTURE = cgptoolbox.Structure(struct(...
+                        'genes', current_classifier.SIZE.GENES, ...
+                        'genes_per_node', current_classifier.SIZE.GENES_PER_NODE, ...
+                        'inputs', current_classifier.SIZE.INPUTS, ...
+                        'connection_genes', current_classifier.SIZE.CONNECTION_GENES, ...
+                        'parameters', current_classifier.SIZE.PARAMETERS, ...
+                        'computational_nodes', current_classifier.SIZE.CONNECTION_NODES ...
+                    ));
+                end
                 score = fitness.testCompute( ...
                     current_classifier.SIZE, ...
                     current_classifier.STRUCTURE, ...
@@ -132,13 +143,13 @@ function test(varargin)
         %end
 
         if size(fp, 2) > 0
-            fprintf(testing_file, '\nfalse positives: \n');
-            fprintf(testing_file, '%s\n', negativeTC(fp).name);
+            %fprintf(testing_file, '\nfalse positives: \n');
+            %fprintf(testing_file, '%s\n', negativeTC(fp).name);
         end
 
         if size(fn, 2) > 0
-            fprintf(testing_file, '\nfalse negatives: \n');
-            fprintf(testing_file, '%s\n', positiveTC(fn).name);
+            %fprintf(testing_file, '\nfalse negatives: \n');
+            %fprintf(testing_file, '%s\n', positiveTC(fn).name);
         end
     end
 end
