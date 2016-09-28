@@ -15,7 +15,7 @@ function test(varargin)
         config.signal.threshold = current_classifier.threshold;
         config.signal.pitch = current_classifier.pitch;
         %config.signal.type = 'record';
-        %config.signal.polyphony = 'chords';
+        config.signal.polyphony = 'chords';
         fitness = Fitness(config);
 
         % test with different set
