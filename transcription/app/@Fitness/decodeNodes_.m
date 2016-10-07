@@ -6,19 +6,22 @@ function nodesResult_ = decodeNodes_(this, sizes, structure, genes, active, node
       sizes.parameters = sizes.PARAMETERS;
   end
 
-  for j = sizes.inputs + 1:size(active, 2)
+  for j = 1:size(active, 2)
+    if active(j) <= sizes.inputs
+        continue;
+    end
     % TODO: pass this parameters to genotype configuration
     % start at number of inputs * number of nodes with
     % inputs; plus the number of genes to get to the first
     % parameter;
-    paramGenes = (active(j) - sizes.inputs) * (3 + sizes.parameters) + sizes.inputs - sizes.parameters + 1:(active(j) - sizes.inputs) * (3 + sizes.parameters) + sizes.inputs;
+    paramGenes = (active(j) - sizes.inputs) * (3 + sizes.parameters) - sizes.parameters + 1:(active(j) - sizes.inputs) * (3 + sizes.parameters);
     for i = 1:size(paramGenes, 2)
       params(i) = genes(paramGenes(i));
     end
 
-    geneFn = genes(structure.functionGenes(active(j)));
-    firstInput = nodesResult_(genes(structure.connectionGenes{1}(active(j))),:);
-    secondInput = nodesResult_(genes(structure.connectionGenes{2}(active(j))),:);
+    geneFn = genes(structure.functionGenes(active(j) - sizes.inputs));
+    firstInput = nodesResult_(genes(structure.connectionGenes{1}(active(j) - sizes.inputs)),:);
+    secondInput = nodesResult_(genes(structure.connectionGenes{2}(active(j) - sizes.inputs)),:);
 
     result = functions{geneFn}(firstInput, secondInput, params);
 

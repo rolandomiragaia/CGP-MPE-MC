@@ -1,5 +1,5 @@
 function this = createGenotype(this)
-    this.createProgramInputs_(this.configuration_.config.structure.programInputs);
+    %this.createProgramInputs_(this.configuration_.config.structure.programInputs);
     this.createFunctionGenes_(this.configuration_.config.structure.functionGenes, this.configuration_.config.sizes.functions, this.configuration_.config.sizes.inputs);
     this.createConnectionGenes_(this.configuration_.config.structure, this.configuration_.config.sizes);
     this.createParameters_(this.configuration_.config.sizes, this.configuration_.parameters);

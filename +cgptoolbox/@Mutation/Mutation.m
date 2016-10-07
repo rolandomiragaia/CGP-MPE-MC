@@ -144,7 +144,7 @@ classdef Mutation < handle
                 % if the last nodes to check are all inputs, break the for loop
                 % because we already know all the active nodes (including the
                 % inputs)
-                if all(activeNodes_(i:end) <=  sizes.inputs)
+                if all(activeNodes_(i:end) <= sizes.inputs)
                     break;
                 end
 
@@ -153,7 +153,7 @@ classdef Mutation < handle
                 %   each of the connection genes will later be checked for its
                 %   connections
                 for j = 1:sizes.connection_genes
-                    activeNodes_(i + (i * 1) + j - 1) = this.genes_(connections{j}(activeNodes_(i)));
+                    activeNodes_(i + (i * 1) + j - 1) = this.genes_(connections{j}(activeNodes_(i) - sizes.inputs));
                 end
             end
 

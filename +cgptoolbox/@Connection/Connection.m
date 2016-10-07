@@ -159,7 +159,7 @@ classdef Connection < handle
             %           'genes_per_node', 3
             %       ), 5)
 
-            node = ceil((this.configuration_.geneIndex - this.configuration_.sizes.inputs) / this.configuration_.sizes.genes_per_node) + this.configuration_.sizes.inputs;
+            node = ceil(this.configuration_.geneIndex / this.configuration_.sizes.genes_per_node);
         end
 
 

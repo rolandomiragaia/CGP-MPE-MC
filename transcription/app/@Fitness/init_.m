@@ -13,7 +13,7 @@ function init_(this, config)
     if isfield(this.config_.signal, 'threshold')
         this.threshold_ = this.config_.signal.threshold;
     else
-        this.threshold_ = 0.1;
+        this.threshold_ = 0.5;
     end
 
     this.fittestThreshold_ = this.threshold_;
