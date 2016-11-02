@@ -1,13 +1,13 @@
 function createOffspring(this)
     % create one genotype
     genotype = cgptoolbox.Genotype(this.configuration_);
-    
+
     this.fittestSolution_ = genotype.createGenotype();
 
     % create the rest of the genotypes
-    for i = 1:this.configuration_.config.sizes.offsprings - 1
+    for i = 1:this.configuration_.config.sizes.offspring - 1
         genotype = cgptoolbox.Genotype(this.configuration_);
-                
+
         this.candidateSolutions_{i} = genotype.createGenotype();;
 
         absolute_value = this.candidateSolutions_{i}.getFitness();

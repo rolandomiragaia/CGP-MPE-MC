@@ -4,10 +4,10 @@ function fittest_ = getFittestSolution(this)
     %   Return the private propertie `fittest_`
     %
     %   Input:
-    %       this {Offsprings} instante of the class
+    %       this {Offspring} instante of the class
     %
     %   Examples:
-    %       offsprings.fittest()
+    %       offspring.fittest()
 
     fittest_ = this.fittestSolution_;
 end

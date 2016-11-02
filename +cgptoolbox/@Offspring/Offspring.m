@@ -1,19 +1,19 @@
-classdef Offsprings < handle
-    % Offsprings Class
-    %   Create initial offsprings of solutions
+classdef Offspring < handle
+    % Offspring Class
+    %   Create initial offspring of solutions
     %
     %   Initialize one genotype, and assign as the best fit.
-    %   Iterate through the offsprings sizes to create new genotypes.
+    %   Iterate through the offspring sizes to create new genotypes.
     %   If one genotype has better fitness than the current fittest,
     %   replace the former.
     %
-    %   Offsprings Properties:
+    %   Offspring Properties:
     %       candidateSolutions_  {Array}    array of solutions
-    %       fittestSolution_    {Genotype} fittest solution of the offsprings
+    %       fittestSolution_    {Genotype} fittest solution of the offspring
     %
-    %   Offsprings Methods:
-    %       solutions {public} get all the solutions in the offsprings
-    %       fittest   {public} get the fittest solution of the offsprings
+    %   Offspring Methods:
+    %       solutions {public} get all the solutions in the offspring
+    %       fittest   {public} get the fittest solution of the offspring
 
     properties (Access = private)
         configuration_
@@ -23,10 +23,10 @@ classdef Offsprings < handle
 
     methods (Access = public)
 
-        function this = Offsprings(vararg)
-            % Offsprings Constructor
+        function this = Offspring(vararg)
+            % Offspring Constructor
             %
-            %   Generate n solutions according to the offsprings sizes.
+            %   Generate n solutions according to the offspring sizes.
             %   Choose the fittest.
             %
             %   Input:

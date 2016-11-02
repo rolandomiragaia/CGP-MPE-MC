@@ -9,13 +9,13 @@ function fn = callback(this, method)
         case 'CONFIGURATION'
             this.initConfigurationClass_();
             fn = this.classes_.configuration.handler();
-        case 'NEW_RUN'
+        case 'RUN_ENDED'
             this.initRunClass_();
             fn = this.classes_.run.handler();
         case 'FIGURES'
             this.config_.print_figures = 1;
             fn = @()(2 + 2);
-        case 'NEW_GENERATION'
+        case 'GENERATION_ENDED'
             this.initGenerationClass_();
             fn = this.classes_.generation.handler();
         case 'NEW_SOLUTION_IN_GENERATION'
