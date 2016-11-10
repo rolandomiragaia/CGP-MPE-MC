@@ -123,7 +123,7 @@ function test(varargin)
 
         score_ = FMeasure(size(tp, 2), size(tn, 2), size(fp, 2), size(fn, 2)).get();
 
-        testing_file = fopen(['transcription/classifiers/', current_classifier.pitch, '/', current_classifier.run_directory, '/', num2str(i), '.txt'], 'w');
+        testing_file = fopen(['transcription/classifiers/', current_classifier.pitch, '/', current_classifier.run_directory, '/', num2str(i), '-chords.txt'], 'w');
 
         fprintf( ...
             testing_file, ...
